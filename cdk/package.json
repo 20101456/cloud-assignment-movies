@@ -9,5 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "dependencies": {
+    "aws-cdk-lib": "^2.222.0",
+    "constructs": "^10.4.3"
+  }
 }
