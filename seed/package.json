@@ -2,10 +2,13 @@
   "name": "seed",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "seed.js",
   "devDependencies": {},
+  "dependencies": {
+    "aws-sdk": "^2.1600.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "seed": "node seed.js"
   },
   "keywords": [],
   "author": "",
