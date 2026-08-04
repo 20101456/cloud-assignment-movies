@@ -10,88 +10,88 @@ const tableName = process.argv[2] || process.env.MOVIES_TABLE || 'CdkStack-Movie
 const sampleData = [
   // Movies
   {
-    pk: 'm1234',
-    sk: 'xxxx',
+    pk: 'm#1234',
+    sk: 'm#1234',
+    movieID: 1234,
     title: 'The Shawshank Redemption',
     releaseDate: '05-03-1995',
-    overview: 'A banker convicted of uxoricide forms a friendship over a quarter century with a hardened convict.',
+    overview: 'A banker convicted of murder forms a friendship with a fellow prisoner during his life sentence.'
   },
   {
-    pk: 'm5678',
-    sk: 'xxxx',
+    pk: 'm#5678',
+    sk: 'm#5678',
+    movieID: 5678,
     title: 'The Godfather',
     releaseDate: '24-03-1972',
-    overview: 'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his youngest son.',
+    overview: 'The aging patriarch of an organised crime family transfers control of his empire to his youngest son.'
   },
+
   // Actors
   {
-    pk: 'a6789',
-    sk: 'xxxx',
+    pk: 'a#4321',
+    sk: 'a#4321',
+    actorID: 4321,
     name: 'Morgan Freeman',
-    bio: 'Born in Memphis, Tennessee. After serving in the U.S. Air Force, he began his acting career in New York.',
     dateOfBirth: '01-06-1937',
+    bio: 'An American actor, producer and narrator with a career spanning several decades.'
   },
   {
-    pk: 'a1111',
-    sk: 'xxxx',
+    pk: 'a#7777',
+    sk: 'a#7777',
+    actorID: 7777,
+    name: 'Tim Robbins',
+    dateOfBirth: '16-10-1958',
+    bio: 'An American actor, director and producer.'
+  },
+  {
+    pk: 'a#1111',
+    sk: 'a#1111',
+    actorID: 1111,
     name: 'Marlon Brando',
-    bio: 'An American actor and filmmaker who is often considered one of the most influential actors of all time.',
     dateOfBirth: '03-04-1924',
+    bio: 'An American actor regarded as one of the most influential actors of the twentieth century.'
   },
-  // Cast members
+
+  // Roles
   {
-    pk: 'c1234',
-    sk: '6789',
-    actorId: '6789',
-    movieId: '1234',
-    roleName: 'Ellis Redding',
-    roleDescription: 'A contraband smuggler serving a life sentence.',
+    pk: 'm#1234',
+    sk: 'a#4321',
+    movieID: 1234,
+    actorID: '4321',
+    roleName: 'Ellis Boyd "Red" Redding',
+    roleDescription: 'A long-term inmate who becomes Andy Dufresne\'s closest friend and serves as the film\'s narrator.'
   },
   {
-    pk: 'c1234',
-    sk: '7777',
-    actorId: '7777',
-    movieId: '1234',
+    pk: 'm#1234',
+    sk: 'a#7777',
+    movieID: 1234,
+    actorID: '7777',
     roleName: 'Andy Dufresne',
-    roleDescription: 'A banker who is imprisoned for life.',
+    roleDescription: 'A banker sentenced to life imprisonment who maintains hope while incarcerated.'
   },
   {
-    pk: 'c5678',
-    sk: '1111',
-    actorId: '1111',
-    movieId: '5678',
+    pk: 'm#5678',
+    sk: 'a#1111',
+    movieID: 5678,
+    actorID: '1111',
     roleName: 'Vito Corleone',
-    roleDescription: 'The aging patriarch of an organized crime dynasty.',
-  },
-  // Awards
-  {
-    pk: 'w1234',
-    sk: 'Academy',
-    category: 'Best Picture',
-    year: 1995,
-    body: 'Academy',
-  },
-  {
-    pk: 'w6789',
-    sk: 'GoldenGlobe',
-    category: 'Best Supporting Actor',
-    year: 1995,
-    body: 'GoldenGlobe',
-  },
+    roleDescription: 'The aging head of the Corleone crime family.'
+  }
 ];
 
 async function seedTable() {
   try {
     console.log(`Seeding table: ${tableName}`);
-    
+
     for (const item of sampleData) {
       await dynamodb.put({
         TableName: tableName,
-        Item: item,
+        Item: item
       }).promise();
+
       console.log(`✓ Inserted: ${item.pk} | ${item.sk}`);
     }
-    
+
     console.log('✓ Seeding complete!');
   } catch (error) {
     console.error('Error seeding table:', error);
