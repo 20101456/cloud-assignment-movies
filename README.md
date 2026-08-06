@@ -25,7 +25,7 @@ The API supports the following endpoints:
 
 Example:
 
-`images/api.png`
+images/api.png
 
 ---
 
@@ -56,7 +56,7 @@ The table is seeded using the `seed/seed.js` script.
 
 Example:
 
-`images/db.png`
+images/db.png
 
 ---
 
