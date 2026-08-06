@@ -1,38 +1,111 @@
 # cloud-assignment-movies
+
 ## Assignment - Cloud App Development.
 
-__Name:__ Jeremiah Casey
+**Name:** Jeremiah Casey
 
 ### Links.
-__Demo:__ A link to your YouTube video demonstration.]
+
+**Demo:** [Add YouTube video link here]
 
 ### Screenshots.
 
-[A screenshot of the App Web API from the management console, e.g.
+#### App Web API
 
-![][api]
+The App Web API was created using Amazon API Gateway and AWS Lambda.
 
-The Auth API is not required as its code was provided in the labs.
+The API supports the following endpoints:
 
-]
+- `GET /movies/{movieID}/roles`
+- `GET /movies/{movieID}/roles?actor={actorID}`
+- `GET /actors/{actorID}`
+- `GET /actors/{actorID}?movie={movieID}`
+- `POST /movies/roles`
+- `DELETE /movies/{movieID}/roles/{actorID}`
 
-[A screenshot of your seeded table from DynamoDB, e.g.
+Example:
 
-![][db]
-]
+`images/api.png`
 
-[A screenshot from CloudWatch logs showing an example of User Activity logging, e.g.
+---
 
-jbloggs /awards?movie=1234&awardBody=Academy
-]
+#### DynamoDB seeded table
 
-### Design features (if required).
+The application uses a single DynamoDB table.
 
-[Briefly explain any design features of the App API in terms of custom L2 constructs, multi-stack, and lambda layers.]
+The partition key is `pk` and the sort key is `sk`.
 
-###  Extra (If relevant).
+The following key structure is used:
 
-[ State any other aspects of your solution that use CDK/serverless features not covered in the lectures.]
+Movie:
 
-[api]: ./images/api.png
-[db]: ./images/db.png
+`PK = m#movieID`  
+`SK = m#movieID`
+
+Actor:
+
+`PK = a#actorID`  
+`SK = a#actorID`
+
+Role:
+
+`PK = m#movieID`  
+`SK = a#actorID`
+
+The table is seeded using the `seed/seed.js` script.
+
+Example:
+
+`images/db.png`
+
+---
+
+#### CloudWatch logs
+
+AWS Lambda execution logs are available through CloudWatch.
+
+User Activity logging was not implemented in this version of the assignment.
+
+
+### Design features.
+
+The project uses AWS CDK to provision the serverless infrastructure.
+
+The CDK stack creates:
+
+- An Amazon DynamoDB table.
+- Four AWS Lambda functions.
+- An Amazon API Gateway REST API.
+- IAM permissions allowing the Lambda functions to access DynamoDB.
+
+The Lambda functions are:
+
+- `get-movie-roles`
+- `get-actor`
+- `post-role`
+- `delete-role`
+
+A single-table DynamoDB design is used to store Movie, Actor and Role data in the same table.
+
+Lambda layers, custom L2 constructs and a multi-stack architecture were not implemented.
+
+### Extra.
+
+The API includes basic validation and error handling.
+
+The POST endpoint checks that:
+
+- `movieID`
+- `actorID`
+- `roleName`
+- `roleDescription`
+
+are included in the request.
+
+It also prevents an existing movie role from being overwritten.
+
+The DELETE endpoint returns an error if the requested role does not exist.
+
+The API was tested using PowerShell `Invoke-RestMethod`.
+
+Authentication using Cognito and administrator API key authentication were not implemented in this version of the assignment.
